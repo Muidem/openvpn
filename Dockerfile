@@ -1,13 +1,8 @@
 FROM alpine
 LABEL maintainer="frankwoodall@gmail.com"
 
-# Add openvpn
-RUN apk update && apk add bash openvpn iptables
+RUN apk update && apk add bash openvpn
 
-# Create the volume to read vpn config
-VOLUME "/etc/openvpn"
+VOLUME /config
 
-COPY entrypoint.sh /usr/bin
-
-ENTRYPOINT /usr/bin/entrypoint.sh
-
+CMD openvpn --config /config/vpn.conf
